@@ -1,0 +1,10 @@
+Package: MixtureDistribution
+Type: Package
+Title: Mixture Distribution
+Version: 1.0
+Date: 2013/03/15
+Author: Rob Carnell <bertcarnell@gmail.com>
+Maintainer: Rob Carnell <bertcarnell@gmail.com>
+Depends: R (>= 2.4.1) 
+Description: Contains the distributions functions for a mixture distribution
+License: GPL (>=v2)

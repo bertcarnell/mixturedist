@@ -9,23 +9,36 @@
 #' @param xMax The maximum value for which probabilities and quantiles are calculated.
 #' @param nPoints The number of points at which the mixed CDF is calculated.  Default=1000.
 #' @param logScale Are the CDF estimates to be performed on a logarithmic scale?  Default=FALSE
-#' @param nThe number of random deviates to compute
+#' @param n The number of random deviates to compute
 #'
 #' @return A vector of densities, probabilities, quantiles, or random deviates from the mixture distribution.
 #'
-#' @rdname mixturedist
+#' @name mixturedist
 #'
 #' @examples
-#'   qMixtureDistribution(c(0.5), list("pnorm(x, 1, 0.1)","pnorm(x, 2, 0.1)","pnorm(x, 3, 0.1)"), 0, 4)
-#'   pMixtureDistribution(2, list("pnorm(x, 1, 0.1)","pnorm(x, 2, 0.1)","pnorm(x, 3, 0.1)"))
-#'   pMixtureDistribution(c(0.5,1,2,4,5,6), list("pnorm(x, 1, 0.1)","pnorm(x, 2, 0.1)","pnorm(x, 3, 0.1)"))
-#'   x1 <- rMixtureDistribution(10000, list("pnorm(x, 1, 0.1)","pnorm(x, 2, 0.1)","pnorm(x, 3, 0.1)"))
+#'   qMixtureDistribution(c(0.5), list("pnorm(x, 1, 0.1)","pnorm(x, 2, 0.1)",
+#'                                     "pnorm(x, 3, 0.1)"), 0, 4)
+#'   pMixtureDistribution(2, list("pnorm(x, 1, 0.1)","pnorm(x, 2, 0.1)",
+#'                                "pnorm(x, 3, 0.1)"))
+#'   pMixtureDistribution(c(0.5,1,2,4,5,6),
+#'                        list("pnorm(x, 1, 0.1)","pnorm(x, 2, 0.1)",
+#'                             "pnorm(x, 3, 0.1)"))
+#'   x1 <- rMixtureDistribution(10000, list("pnorm(x, 1, 0.1)",
+#'                                          "pnorm(x, 2, 0.1)",
+#'                                          "pnorm(x, 3, 0.1)"))
 #'   mean(x1)
-#'   rMixtureDistribution(1, list("pnorm(x, 1, 0.1)","pnorm(x, 2, 0.1)","pnorm(x, 3, 0.1)"))
-#'   rMixtureDistribution(3, list("pnorm(x, 1, 0.1)","pnorm(x, 2, 0.1)","pnorm(x, 3, 0.1)"))
-#'   rMixtureDistribution(4, list("pnorm(x, 1, 0.1)","pnorm(x, 2, 0.1)","pnorm(x, 3, 0.1)"))
-#'   integrate(dMixtureDistribution, 0, 4, functionList=list("pnorm(x, 1, 0.1)","pnorm(x, 2, 0.1)","pnorm(x, 3, 0.1)"))
-#'   integrate(dMixtureDistribution, 0, Inf, functionList=list("pnorm(x, 1, 0.1)","plnorm(x, .2, 0.1)","pnorm(x, 3, 0.1)"))
+#'   rMixtureDistribution(1, list("pnorm(x, 1, 0.1)","pnorm(x, 2, 0.1)",
+#'                                "pnorm(x, 3, 0.1)"))
+#'   rMixtureDistribution(3, list("pnorm(x, 1, 0.1)","pnorm(x, 2, 0.1)",
+#'                                "pnorm(x, 3, 0.1)"))
+#'   rMixtureDistribution(4, list("pnorm(x, 1, 0.1)","pnorm(x, 2, 0.1)",
+#'                                "pnorm(x, 3, 0.1)"))
+#'   integrate(dMixtureDistribution, 0, 4,
+#'             functionList = list("pnorm(x, 1, 0.1)","pnorm(x, 2, 0.1)",
+#'                                 "pnorm(x, 3, 0.1)"))
+#'   integrate(dMixtureDistribution, 0, Inf,
+#'             functionList = list("pnorm(x, 1, 0.1)","plnorm(x, .2, 0.1)",
+#'                                 "pnorm(x, 3, 0.1)"))
 
 .checkFunctions <- function(functionList)
 {
@@ -38,6 +51,7 @@
 }
 
 #' @rdname mixturedist
+#' @importFrom stats approx
 #' @export
 qMixtureDistribution <- function(p, functionList, xMin, xMax, nPoints=1000,
                                  logScale=FALSE)

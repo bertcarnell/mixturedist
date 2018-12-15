@@ -4,11 +4,9 @@ matrix:
   include:
     - dist: xenial
       r: release
-    - dist: xenial
+    - dist: trusty
       r: devel
     - os: osx
-      r: release
-    - os: windows
       r: release
 
 r_github_packages:

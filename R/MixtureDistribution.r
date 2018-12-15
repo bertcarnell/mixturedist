@@ -43,7 +43,7 @@
 .checkFunctions <- function(functionList)
 {
   if (any(sapply(functionList, is.na)))
-    stop("functionList contains NA values in qMixtureDistribution")
+    stop("functionList contains NA values in MixtureDistribution")
   if (!(length(grep("x", functionList)) == length(functionList)))
     stop("one element of functionList does not contain an x")
   if (!(length(grep("^[:blank:]*p", functionList)) == length(functionList)))
@@ -52,11 +52,16 @@
 
 #' @rdname mixturedist
 #' @importFrom stats approx
+#' @importFrom assertthat assert_that
 #' @export
 qMixtureDistribution <- function(p, functionList, xMin, xMax, nPoints=1000,
                                  logScale=FALSE)
 {
-  stopifnot(all(p > 0) & all(p < 1))
+  assert_that(all(p >= 0) & all(p <= 1),
+              msg = "probabilities must be >= 0 and <= 1")
+  assert_that(logScale == FALSE || (logScale == TRUE && xMin > 0),
+              msg = "xMin must be >0 when logScale = TRUE")
+  assert_that(xMin <= xMax, msg = "xMin must be <= xMax")
   .checkFunctions(functionList)
 
   if (!logScale)
@@ -88,7 +93,7 @@ qMixtureDistribution <- function(p, functionList, xMin, xMax, nPoints=1000,
 #' @export
 rMixtureDistribution <- function(n, functionList)
 {
-  stopifnot(n >= 1)
+  assert_that(n >= 1, msg = paste("n >= 1 is required, ", n, " was supplied"))
   len <- length(functionList)
 
   if (n < len)
